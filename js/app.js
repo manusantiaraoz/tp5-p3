@@ -3,16 +3,23 @@ const tareaIn = document.getElementById("tareaInput");
 const form = document.getElementById("formu");
 const lista = [];
 
+
+
+
+
 const mostrarLista = (ultimoIndice) => {
-  // Encuentra el nodo padre
-  const referencia = document.querySelector(".referencia")
-
-
-  // Agrega los elementos de la lista que se agregaron después del índice especificado
-  for (var i = ultimoIndice; i < lista.length; i++) {
-    var newNode = document.createElement("p");
-    var textNode = document.createTextNode(lista[i]);
+  const referencia = document.querySelector(".referencia");
+  referencia.innerHTML = "";
+  for (let i = ultimoIndice; i < lista.length; i++) {
+    const newNode = document.createElement("p");
+    const textNode = document.createTextNode(lista[i]);
     newNode.appendChild(textNode);
+    const botonBorrar = document.createElement("button");
+    botonBorrar.innerHTML = "Borrar";
+    botonBorrar.addEventListener("click", () => {
+      borrarTarea(i);
+    });
+    newNode.appendChild(botonBorrar);
     referencia.appendChild(newNode);
   }
 }
@@ -27,6 +34,12 @@ const infoTarea =(e)=>{
   form.reset();
   let ultimo = lista.length-1;
   mostrarLista(ultimo);
+}
+
+const borrarTarea = (indice) => {
+  lista.splice(indice, 1);
+  console.log(lista.length);
+  mostrarLista();
 }
 
 
